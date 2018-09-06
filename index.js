@@ -8,6 +8,8 @@ function createWindow() {
     height: 600,
     title: 'Price list diff manager',
   });
+
+  win.loadFile('./index.html');
 }
 
 app.on('ready', createWindow);
