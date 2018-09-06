@@ -9,7 +9,7 @@ function createWindow() {
     title: 'Price list diff manager',
   });
 
-  win.loadFile('./index.html');
+  win.loadFile('./dist/index.html');
 }
 
 app.on('ready', createWindow);
