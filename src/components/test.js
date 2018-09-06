@@ -10,7 +10,7 @@ class FormContainer extends Component {
   render() {
     return (
       <form id="article-form">
-       <div>123</div>
+       <div>123 1231zvczcx</div>
       </form>
     );
   }

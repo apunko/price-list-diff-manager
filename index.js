@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+require('electron-reload')(__dirname);
 
 let win;
 
@@ -8,8 +9,9 @@ function createWindow() {
     height: 600,
     title: 'Price list diff manager',
   });
-
-  win.loadFile('./dist/index.html');
+  win.webContents.openDevTools();
+  win.loadURL('http://localhost:8080/');
+  // win.loadFile('./dist/index.html');
 }
 
 app.on('ready', createWindow);
