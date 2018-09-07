@@ -1,8 +1,8 @@
 import React from 'react';
 import * as Log from 'electron-log';
-import XLSX from 'xlsx';
 // import OpenDialog from '../components/open-dialog';
 import FileParsingConfig from '../components/file-parsing-config';
+import PriceService from '../services/price-service';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class AppContainer extends React.Component {
     };
 
     this.updateFileConfig = this.updateFileConfig.bind(this);
+    this.compareFiles = this.compareFiles.bind(this);
   }
 
   updateFileConfig(name, file) {
@@ -32,10 +33,9 @@ class AppContainer extends React.Component {
   }
 
   compareFiles() {
-    const oldFile = XLSX.readFile(this.state.oldFile.path);
-    Log.info(`${Date(Date.now)}:\n Read: ${this.state.oldFile.path};\n Sheets names: ${oldFile.SheetNames}`);
-    const newFile = XLSX.readFile(this.state.newFile.path);
-    Log.info(`${Date(Date.now)}:\n Read: ${this.state.newFile.path};\n Sheets names: ${newFile.SheetNames}`);
+    const oldFileRows = PriceService.parseRows(this.state.oldFile);
+    Log.info(oldFileRows);
+    // const newFile = PriceService.parse(this.state.newFile);
   }
 
   render() {
