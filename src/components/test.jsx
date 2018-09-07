@@ -1,16 +1,18 @@
-import React, { Component } from "react";
+import React from 'react';
 
-class FormContainer extends Component {
+class FormContainer extends React.Component {
   constructor() {
     super();
     this.state = {
-      title: ""
+      title: 'new',
     };
   }
+
   render() {
     return (
-      <div>new</div>
+      <div>{this.state.title}</div>
     );
   }
 }
+
 export default FormContainer;
