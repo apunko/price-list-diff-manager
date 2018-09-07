@@ -4,11 +4,11 @@ import * as Logger from 'electron-log';
 
 const { dialog } = require('electron').remote;
 
-class OpenDisalog extends React.Component {
+class OpenDialog extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { path: '' };
+    this.state = { path: null };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -18,6 +18,10 @@ class OpenDisalog extends React.Component {
     dialog.showOpenDialog(
       {
         title: this.props.label,
+        properties: [this.props.type],
+        filters: [
+          { name: 'Excel', extensions: ['xls', 'xlsx'] },
+        ],
       },
       this.handleSelect,
     );
@@ -25,7 +29,7 @@ class OpenDisalog extends React.Component {
 
   handleSelect(filePaths) {
     Logger.info(filePaths);
-    this.setState({ path: filePaths[0] });
+    this.setState({ path: filePaths ? filePaths[0] : null });
   }
 
   render() {
@@ -42,8 +46,13 @@ class OpenDisalog extends React.Component {
   }
 }
 
-OpenDisalog.propTypes = {
+OpenDialog.propTypes = {
   label: PropTypes.string.isRequired,
+  type: PropTypes.string,
 };
 
-export default OpenDisalog;
+OpenDialog.defaultProps = {
+  type: 'openFile',
+};
+
+export default OpenDialog;

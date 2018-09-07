@@ -7,7 +7,7 @@ class AppContainer extends React.Component {
       <>
         <OpenDialog label="Select old file" />
         <OpenDialog label="Select new file" />
-        <OpenDialog label="Select output directory" />
+        <OpenDialog label="Select output directory" type="openDirectory" />
       </>
     );
   }
