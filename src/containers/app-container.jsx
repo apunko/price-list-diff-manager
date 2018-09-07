@@ -1,8 +1,8 @@
 import React from 'react';
-import * as Log from 'electron-log';
 // import OpenDialog from '../components/open-dialog';
 import FileParsingConfig from '../components/file-parsing-config';
 import PriceService from '../services/price-service';
+import Logger from '../helpers/logger';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -34,8 +34,9 @@ class AppContainer extends React.Component {
 
   compareFiles() {
     const oldFileRows = PriceService.parseRows(this.state.oldFile);
-    Log.info(oldFileRows);
-    // const newFile = PriceService.parse(this.state.newFile);
+    Logger.info(oldFileRows);
+    const newFileRows = PriceService.parse(this.state.newFile);
+    Logger.info(newFileRows);
   }
 
   render() {

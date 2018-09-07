@@ -1,5 +1,5 @@
 import XLSX from 'xlsx';
-import * as Log from 'electron-log';
+import Logger from '../helpers/logger';
 
 function sheetToArray(sheet) {
   const result = [];
@@ -22,12 +22,12 @@ function sheetToArray(sheet) {
 }
 
 const PriceService = {
-  parseRows(fileConfig) {
+  parseRows: (fileConfig) => {
     if (!fileConfig && !fileConfig.pass) { return []; }
 
     const file = XLSX.readFile(fileConfig.path);
     const sheet = file.Sheets[file.SheetNames[0]];
-    Log.info(`${Date(Date.now)}:\n Read: ${fileConfig.path};\n Sheets names: ${file.SheetNames}`);
+    Logger.info(`Read: ${fileConfig.path};\n Sheets names: ${file.SheetNames}`);
 
     return sheetToArray(sheet);
   },
