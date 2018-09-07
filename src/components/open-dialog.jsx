@@ -14,7 +14,7 @@ class OpenDialog extends React.Component {
   handleClick() {
     dialog.showOpenDialog(
       {
-        title: this.props.label,
+        title: this.props.title,
         properties: [this.props.type],
         filters: [
           { name: 'Excel', extensions: ['xls', 'xlsx'] },
@@ -25,27 +25,27 @@ class OpenDialog extends React.Component {
   }
 
   handleSelect(filePaths) {
-    this.props.updatePath(this.props.name, filePaths ? filePaths[0] : null);
+    this.props.onSelect(filePaths ? filePaths[0] : null);
   }
 
   render() {
     return (
       <>
-        <button type="button" onClick={this.handleClick}>{this.props.label}</button>
+        <button type="button" onClick={this.handleClick}>{this.props.title}</button>
       </>
     );
   }
 }
 
 OpenDialog.propTypes = {
-  label: PropTypes.string.isRequired,
-  updatePath: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
   type: PropTypes.string,
+  title: PropTypes.string,
 };
 
 OpenDialog.defaultProps = {
   type: 'openFile',
+  title: 'Select',
 };
 
 export default OpenDialog;

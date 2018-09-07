@@ -1,36 +1,63 @@
 import React from 'react';
 import * as Log from 'electron-log';
 import XLSX from 'xlsx';
-import OpenDialog from '../components/open-dialog';
+// import OpenDialog from '../components/open-dialog';
+import FileParsingConfig from '../components/file-parsing-config';
 
 class AppContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      oldFilePath: null,
-      newFilePath: null,
-      outputDirectoryPath: null,
+      oldFile: {
+        path: null,
+        idColumn: 'A',
+        startRow: '5',
+      },
+      newFile: {
+        path: null,
+        idColumn: 'A',
+        startRow: '5',
+      },
+      // outputDirectoryPath: null,
     };
 
-    this.updatePath = this.updatePath.bind(this);
+    this.updateFileConfig = this.updateFileConfig.bind(this);
   }
 
-  updatePath(name, path) {
-    this.setState({ [name]: path });
-    const workbook = XLSX.readFile(path);
-    Log.info(`${Date(Date.now)}:\n ${name}-${path} sheets names: ${workbook.SheetNames}`);
+  updateFileConfig(name, file) {
+    if (!file) { return; }
+
+    this.setState({ [name]: file });
+  }
+
+  compareFiles() {
+    const oldFile = XLSX.readFile(this.state.oldFile.path);
+    Log.info(`${Date(Date.now)}:\n Read: ${this.state.oldFile.path};\n Sheets names: ${oldFile.SheetNames}`);
+    const newFile = XLSX.readFile(this.state.newFile.path);
+    Log.info(`${Date(Date.now)}:\n Read: ${this.state.newFile.path};\n Sheets names: ${newFile.SheetNames}`);
   }
 
   render() {
     return (
       <>
-        {this.state.oldFilePath}
-        <OpenDialog label="Select old file" name="oldFilePath" updatePath={this.updatePath} />
-        {this.state.newFilePath}
-        <OpenDialog label="Select new file" name="newFilePath" updatePath={this.updatePath} />
-        {this.state.outputDirectoryPath}
-        <OpenDialog label="Select output directory" name="outputDirectoryPath" updatePath={this.updatePath} type="openDirectory" />
+        <FileParsingConfig
+          title="Old file"
+          name="oldFile"
+          change={this.updateFileConfig}
+          file={this.state.oldFile}
+        />
+        <FileParsingConfig
+          title="New file"
+          name="newFile"
+          change={this.updatePath}
+          file={this.state.newFile}
+        />
+        <br />
+        <button type="button" onClick={this.compareFiles}>Generate diff xls</button>
+        {/* {this.state.outputDirectoryPath}
+        <OpenDialog label="Select output directory"
+        name="outputDirectoryPath" updatePath={this.updatePath} type="openDirectory" /> */}
       </>
     );
   }
