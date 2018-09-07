@@ -9,9 +9,7 @@ class FormContainer extends Component {
   }
   render() {
     return (
-      <form id="article-form">
-       <div>new123 1231231zvczcx</div>
-      </form>
+      <div>new</div>
     );
   }
 }
