@@ -1,4 +1,6 @@
 import React from 'react';
+import * as Log from 'electron-log';
+import XLSX from 'xlsx';
 import OpenDialog from '../components/open-dialog';
 
 class AppContainer extends React.Component {
@@ -16,17 +18,19 @@ class AppContainer extends React.Component {
 
   updatePath(name, path) {
     this.setState({ [name]: path });
+    const workbook = XLSX.readFile(path);
+    Log.info(`${Date(Date.now)}:\n ${name}-${path} sheets names: ${workbook.SheetNames}`);
   }
 
   render() {
     return (
       <>
-        <OpenDialog label="Select old file" name="oldFilePath" updatePath={this.updatePath} />
-        <OpenDialog label="Select new file" name="newFilePath" updatePath={this.updatePath} />
-        <OpenDialog label="Select output directory" name="outputDirectoryPath" updatePath={this.updatePath} type="openDirectory" />
         {this.state.oldFilePath}
+        <OpenDialog label="Select old file" name="oldFilePath" updatePath={this.updatePath} />
         {this.state.newFilePath}
+        <OpenDialog label="Select new file" name="newFilePath" updatePath={this.updatePath} />
         {this.state.outputDirectoryPath}
+        <OpenDialog label="Select output directory" name="outputDirectoryPath" updatePath={this.updatePath} type="openDirectory" />
       </>
     );
   }
