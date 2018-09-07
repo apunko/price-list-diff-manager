@@ -7,8 +7,13 @@
     "dev": "nf start",
     "start": "electron .",
     "build": "webpack --mode production",
-    "start-react": "webpack-dev-server --open --mode development",
     "lint": "eslint --ext js --ext jsx src"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn build"
+    }
   },
   "keywords": [],
   "author": "",
@@ -33,6 +38,7 @@
     "foreman": "^3.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^1.0.0-rc.13",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.7"
