@@ -2,7 +2,6 @@ import React from 'react';
 // import OpenDialog from '../components/open-dialog';
 import FileParsingConfig from '../components/file-parsing-config';
 import PriceService from '../services/price-service';
-import Logger from '../helpers/logger';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -33,23 +32,7 @@ class AppContainer extends React.Component {
   }
 
   compareFiles() {
-    const oldFileRows = PriceService.parseRows(this.state.oldFile);
-    const newFileRows = PriceService.parseRows(this.state.newFile);
-
-    const newRows = PriceService.selectNewRows(
-      oldFileRows,
-      this.state.oldFile.idColumn - 1,
-      newFileRows,
-      this.state.newFile.idColumn - 1,
-    );
-    const oldRows = PriceService.selectNewRows(
-      newFileRows,
-      this.state.newFile.idColumn - 1,
-      oldFileRows,
-      this.state.oldFile.idColumn - 1,
-    );
-    Logger.info(newRows.length);
-    Logger.info(oldRows.length);
+    PriceService.savePriceDiff(this.state.oldFile, this.state.newFile);
   }
 
   render() {

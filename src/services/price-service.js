@@ -1,5 +1,6 @@
 import XLSX from 'xlsx';
 import Logger from '../helpers/logger';
+import ArrayDiffHelper from '../helpers/array-diff-helper';
 
 function sheetToArray(sheet) {
   const result = [];
@@ -32,14 +33,25 @@ const PriceService = {
 
     return rows.slice(fileConfig.startRow - 1, rows.length - 1);
   },
-  selectNewRows: (oldPriceRows, oldPriceIdColumn, newPriceRows, newIdColumn) => (
-    newPriceRows.filter(priceRow => (
-      !PriceService.isInPrice(oldPriceRows, oldPriceIdColumn, priceRow[newIdColumn])
-    ))
-  ),
-  isInPrice: (rows, idColumn, rowFromDifferentId) => (
-    rows.some(row => row[idColumn] === rowFromDifferentId)
-  ),
+  savePriceDiff: (oldFileConfig, newFileConfig) => {
+    const oldFileRows = PriceService.parseRows(oldFileConfig);
+    const newFileRows = PriceService.parseRows(newFileConfig);
+
+    const addedRows = ArrayDiffHelper.selectAddedRows(
+      oldFileRows,
+      oldFileConfig.idColumn - 1,
+      newFileRows,
+      newFileConfig.idColumn - 1,
+    );
+    const removedRows = ArrayDiffHelper.selectAddedRows(
+      newFileRows,
+      newFileConfig.idColumn - 1,
+      oldFileRows,
+      oldFileConfig.idColumn - 1,
+    );
+    Logger.info(addedRows.length);
+    Logger.info(removedRows.length);
+  },
 };
 
 export default PriceService;
