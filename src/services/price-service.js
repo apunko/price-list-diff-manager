@@ -9,22 +9,11 @@ const PriceService = {
 
     return rows.slice(fileConfig.startRow - 1, rows.length - 1);
   },
-  savePriceDiff: (oldFileConfig, newFileConfig) => {
-    const oldFileRows = PriceService.parseRows(oldFileConfig);
-    const newFileRows = PriceService.parseRows(newFileConfig);
-
-    const addedRows = ArrayDiffHelper.selectAddedRows(
-      oldFileRows,
-      oldFileConfig.idColumn - 1,
-      newFileRows,
-      newFileConfig.idColumn - 1,
-    );
-    const removedRows = ArrayDiffHelper.selectAddedRows(
-      newFileRows,
-      newFileConfig.idColumn - 1,
-      oldFileRows,
-      oldFileConfig.idColumn - 1,
-    );
+  savePriceDiff: (oldConfig, newConfig) => {
+    const oldRows = PriceService.parseRows(oldConfig);
+    const newRows = PriceService.parseRows(newConfig);
+    const addedRows = ArrayDiffHelper.getAddedRows(oldRows, oldConfig.idColumn - 1, newRows, newConfig.idColumn - 1);
+    const removedRows = ArrayDiffHelper.getAddedRows(newRows, newConfig.idColumn - 1, oldRows, oldConfig.idColumn - 1);
 
     XlsxHelper.saveSheets(
       'out2.xls',

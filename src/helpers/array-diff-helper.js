@@ -1,5 +1,5 @@
 const ArrayDiffHelper = {
-  selectAddedRows: (oldRows, oldIdColumn, newRows, newIdColumn) => (
+  getAddedRows: (oldRows, oldIdColumn, newRows, newIdColumn) => (
     newRows.filter(priceRow => (
       !ArrayDiffHelper.isInRows(oldRows, oldIdColumn, priceRow[newIdColumn])
     ))
