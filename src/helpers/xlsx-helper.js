@@ -1,6 +1,7 @@
 import XLSX from 'xlsx';
 import Logger from './logger';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { dialog } = require('electron').remote;
 
 const XlsxHelper = {
