@@ -40,6 +40,7 @@ class FileParsingConfig extends React.Component {
           <input
             type="number"
             name="startRow"
+            min="0"
             onChange={this.handleChange}
             value={this.props.file.startRow}
           />

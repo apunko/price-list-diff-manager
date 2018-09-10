@@ -51,7 +51,7 @@ class AppContainer extends React.Component {
         <FileParsingConfig
           title="New file"
           name="newFile"
-          change={this.updatePath}
+          change={this.updateFileConfig}
           file={this.state.newFile}
         />
         <br />
