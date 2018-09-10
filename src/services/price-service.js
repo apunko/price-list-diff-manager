@@ -1,16 +1,11 @@
-import XLSX from 'xlsx';
-import Logger from '../helpers/logger';
 import ArrayDiffHelper from '../helpers/array-diff-helper';
-import XlsHelper from '../helpers/xls-helper';
+import XlsxHelper from '../helpers/xlsx-helper';
 
 const PriceService = {
   parseRows: (fileConfig) => {
     if (!fileConfig && !fileConfig.pass) { return []; }
 
-    const file = XLSX.readFile(fileConfig.path);
-    const sheet = file.Sheets[file.SheetNames[0]];
-    Logger.info(`Read: ${fileConfig.path};\n Sheets names: ${file.SheetNames}`);
-    const rows = XlsHelper.sheetToArray(sheet);
+    const rows = XlsxHelper.parseRows(fileConfig.path);
 
     return rows.slice(fileConfig.startRow - 1, rows.length - 1);
   },
@@ -30,8 +25,11 @@ const PriceService = {
       oldFileRows,
       oldFileConfig.idColumn - 1,
     );
-    Logger.info(addedRows.length);
-    Logger.info(removedRows.length);
+
+    XlsxHelper.saveSheets(
+      'out2.xls',
+      [{ data: addedRows, name: 'Added items' }, { data: removedRows, name: 'Removed items' }],
+    );
   },
 };
 
