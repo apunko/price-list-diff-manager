@@ -1,26 +1,7 @@
 import XLSX from 'xlsx';
 import Logger from '../helpers/logger';
 import ArrayDiffHelper from '../helpers/array-diff-helper';
-
-function sheetToArray(sheet) {
-  const result = [];
-  let row;
-  let rowNum;
-  let colNum;
-  const range = XLSX.utils.decode_range(sheet['!ref']);
-  for (rowNum = range.s.r; rowNum <= range.e.r; rowNum += 1) {
-    row = [];
-    for (colNum = range.s.c; colNum <= range.e.c; colNum += 1) {
-      const nextCell = sheet[XLSX.utils.encode_cell({ r: rowNum, c: colNum })];
-      if (typeof nextCell === 'undefined') {
-        row.push(undefined);
-      } else row.push(nextCell.w);
-    }
-    result.push(row);
-  }
-
-  return result;
-}
+import XlsHelper from '../helpers/xls-helper';
 
 const PriceService = {
   parseRows: (fileConfig) => {
@@ -29,7 +10,7 @@ const PriceService = {
     const file = XLSX.readFile(fileConfig.path);
     const sheet = file.Sheets[file.SheetNames[0]];
     Logger.info(`Read: ${fileConfig.path};\n Sheets names: ${file.SheetNames}`);
-    const rows = sheetToArray(sheet);
+    const rows = XlsHelper.sheetToArray(sheet);
 
     return rows.slice(fileConfig.startRow - 1, rows.length - 1);
   },

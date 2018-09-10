@@ -1,0 +1,25 @@
+import XLSX from 'xlsx';
+
+const XlsHelper = {
+  sheetToArray: (sheet) => {
+    const result = [];
+    let row;
+    let rowNum;
+    let colNum;
+    const range = XLSX.utils.decode_range(sheet['!ref']);
+    for (rowNum = range.s.r; rowNum <= range.e.r; rowNum += 1) {
+      row = [];
+      for (colNum = range.s.c; colNum <= range.e.c; colNum += 1) {
+        const nextCell = sheet[XLSX.utils.encode_cell({ r: rowNum, c: colNum })];
+        if (typeof nextCell === 'undefined') {
+          row.push(undefined);
+        } else row.push(nextCell.w);
+      }
+      result.push(row);
+    }
+
+    return result;
+  },
+};
+
+export default XlsHelper;
