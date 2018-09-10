@@ -1,6 +1,8 @@
 import XLSX from 'xlsx';
 import Logger from './logger';
 
+const { dialog } = require('electron').remote;
+
 const XlsxHelper = {
   sheetToArray: (sheet) => {
     const result = [];
@@ -28,14 +30,15 @@ const XlsxHelper = {
 
     return XlsxHelper.sheetToArray(sheet);
   },
-  saveSheets: (filename, sheets) => {
+  saveSheets: (sheets) => {
     const book = XLSX.utils.book_new();
     for (let i = 0; i < sheets.length; i += 1) {
       const sheet = XLSX.utils.json_to_sheet(sheets[i].data);
       XLSX.utils.book_append_sheet(book, sheet, sheets[i].name);
     }
 
-    return XLSX.writeFile(book, filename);
+    const saveDialog = dialog.showSaveDialog({ title: 'Save diff file' }, filename => Logger.info(filename));
+    XLSX.writeFile(book, saveDialog);
   },
 };
 

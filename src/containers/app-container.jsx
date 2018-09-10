@@ -51,7 +51,7 @@ class AppContainer extends React.Component {
           file={this.state.newFile}
         />
         <br />
-        <button type="button" onClick={this.compareFiles}>Generate diff xls</button>
+        <button type="button" onClick={this.compareFiles}>Generate diff file</button>
         {/* {this.state.outputDirectoryPath}
         <OpenDialog label="Select output directory"
         name="outputDirectoryPath" updatePath={this.updatePath} type="openDirectory" /> */}

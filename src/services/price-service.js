@@ -16,7 +16,6 @@ const PriceService = {
     const removedRows = ArrayDiffHelper.getAddedRows(newRows, newConfig.idColumn - 1, oldRows, oldConfig.idColumn - 1);
 
     XlsxHelper.saveSheets(
-      'out2.xls',
       [{ data: addedRows, name: 'Added items' }, { data: removedRows, name: 'Removed items' }],
     );
   },
