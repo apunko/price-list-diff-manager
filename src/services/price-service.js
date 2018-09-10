@@ -28,9 +28,18 @@ const PriceService = {
     const file = XLSX.readFile(fileConfig.path);
     const sheet = file.Sheets[file.SheetNames[0]];
     Logger.info(`Read: ${fileConfig.path};\n Sheets names: ${file.SheetNames}`);
+    const rows = sheetToArray(sheet);
 
-    return sheetToArray(sheet);
+    return rows.slice(fileConfig.startRow - 1, rows.length - 1);
   },
+  selectNewRows: (oldPriceRows, oldPriceIdColumn, newPriceRows, newIdColumn) => (
+    newPriceRows.filter(priceRow => (
+      !PriceService.isInPrice(oldPriceRows, oldPriceIdColumn, priceRow[newIdColumn])
+    ))
+  ),
+  isInPrice: (rows, idColumn, rowFromDifferentId) => (
+    rows.some(row => row[idColumn] === rowFromDifferentId)
+  ),
 };
 
 export default PriceService;

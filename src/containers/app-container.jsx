@@ -11,13 +11,13 @@ class AppContainer extends React.Component {
     this.state = {
       oldFile: {
         path: null,
-        idColumn: 'A',
-        startRow: '5',
+        idColumn: '4',
+        startRow: '3',
       },
       newFile: {
         path: null,
-        idColumn: 'A',
-        startRow: '5',
+        idColumn: '5',
+        startRow: '3',
       },
       // outputDirectoryPath: null,
     };
@@ -34,9 +34,22 @@ class AppContainer extends React.Component {
 
   compareFiles() {
     const oldFileRows = PriceService.parseRows(this.state.oldFile);
-    Logger.info(oldFileRows);
-    const newFileRows = PriceService.parse(this.state.newFile);
-    Logger.info(newFileRows);
+    const newFileRows = PriceService.parseRows(this.state.newFile);
+
+    const newRows = PriceService.selectNewRows(
+      oldFileRows,
+      this.state.oldFile.idColumn - 1,
+      newFileRows,
+      this.state.newFile.idColumn - 1,
+    );
+    const oldRows = PriceService.selectNewRows(
+      newFileRows,
+      this.state.newFile.idColumn - 1,
+      oldFileRows,
+      this.state.oldFile.idColumn - 1,
+    );
+    Logger.info(newRows.length);
+    Logger.info(oldRows.length);
   }
 
   render() {

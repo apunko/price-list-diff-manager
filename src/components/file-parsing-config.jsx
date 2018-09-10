@@ -27,10 +27,11 @@ class FileParsingConfig extends React.Component {
       <>
         <h2>{this.props.title}</h2>
         <label htmlFor="idColumn">
-          ID column:
+          ID column number:
           <input
-            type="text"
+            type="number"
             name="idColumn"
+            min="1"
             onChange={this.handleChange}
             value={this.props.file.idColumn}
           />
@@ -40,7 +41,7 @@ class FileParsingConfig extends React.Component {
           <input
             type="number"
             name="startRow"
-            min="0"
+            min="1"
             onChange={this.handleChange}
             value={this.props.file.startRow}
           />
@@ -61,7 +62,7 @@ FileParsingConfig.propTypes = {
   name: PropTypes.string.isRequired,
   file: PropTypes.shape({
     path: PropTypes.string,
-    idColumn: PropTypes.string.isRequired,
+    idColumn: PropTypes.number.isRequired,
     startRow: PropTypes.number.isRequired,
   }).isRequired,
 };
