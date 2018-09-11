@@ -6,13 +6,17 @@ let win;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: process.env.IS_PROD ? 800 : 1000,
+    height: process.env.IS_PROD ? 600 : 700,
     title: 'Price list diff manager',
   });
-  win.webContents.openDevTools();
-  win.loadURL('http://localhost:8080/');
-  // win.loadFile('./dist/index.html');
+
+  if (process.env.IS_PROD) {
+    win.loadFile('./dist/index.html');
+  } else {
+    win.webContents.openDevTools();
+    win.loadURL('http://localhost:8080/');
+  }
 }
 
 app.on('ready', createWindow);

@@ -7,10 +7,11 @@
   "scripts": {
     "dev": "nf start",
     "start": "electron .",
+    "prod": "IS_PROD=true yarn start",
     "build": "webpack --mode production",
     "start-react": "webpack-dev-server --open --mode development",
     "lint": "eslint --ext js --ext jsx src",
-    "dist": "electron-packager . price-list-diff-manager --platform win32 --arch x64 --out out/",
+    "dist": "IS_PROD=true electron-packager . price-list-diff-manager --platform win32 --arch x64 --out out/",
     "exe-build": "electron-installer-windows --src out/price-list-diff-manager-win32-x64/ --dest out/installers/"
   },
   "husky": {
