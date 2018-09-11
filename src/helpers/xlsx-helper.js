@@ -40,6 +40,8 @@ const XlsxHelper = {
     }
 
     const saveDialog = dialog.showSaveDialog({ defaultPath: 'DiffBook.xlsx' });
+    if (!saveDialog) { return; }
+
     XLSX.writeFile(book, saveDialog);
     Logger.info('File was saved');
   },
