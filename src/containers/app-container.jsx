@@ -1,6 +1,7 @@
 import React from 'react';
 import FileParsingConfig from '../components/file-parsing-config';
 import PriceService from '../services/price-service';
+import FileConfigHelper from '../helpers/file-config-helper';
 import './app.css';
 
 class AppContainer extends React.Component {
@@ -22,6 +23,7 @@ class AppContainer extends React.Component {
 
     this.updateFileConfig = this.updateFileConfig.bind(this);
     this.compareFiles = this.compareFiles.bind(this);
+    this.canGenerateDiff = this.canGenerateDiff.bind(this);
   }
 
   updateFileConfig(name, file) {
@@ -32,6 +34,12 @@ class AppContainer extends React.Component {
 
   compareFiles() {
     PriceService.savePriceDiff(this.state.oldFile, this.state.newFile);
+  }
+
+  canGenerateDiff() {
+    const { oldFile, newFile } = this.state;
+
+    return FileConfigHelper.isValid(oldFile) && FileConfigHelper.isValid(newFile);
   }
 
   render() {
@@ -52,7 +60,9 @@ class AppContainer extends React.Component {
           />
         </div>
         <div className="diff-button">
-          <button type="button" onClick={this.compareFiles}>Generate diff file</button>
+          <button disabled={!this.canGenerateDiff()} type="button" onClick={this.compareFiles}>
+            Generate diff file
+          </button>
         </div>
         <hr />
       </>

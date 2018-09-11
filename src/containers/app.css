@@ -21,6 +21,10 @@
   cursor: pointer;
 }
 
+.diff-button button:disabled {
+  background: #dddddd;
+  cursor: default;
+}
 
 .file-configs-grid > div:nth-child(2) {
   border-left: 1px solid grey;
