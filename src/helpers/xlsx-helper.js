@@ -39,8 +39,9 @@ const XlsxHelper = {
       XLSX.utils.book_append_sheet(book, sheet, sheets[i].name);
     }
 
-    const saveDialog = dialog.showSaveDialog();
+    const saveDialog = dialog.showSaveDialog({ defaultPath: 'DiffBook.xlsx' });
     XLSX.writeFile(book, saveDialog);
+    Logger.info('File was saved');
   },
 };
 
