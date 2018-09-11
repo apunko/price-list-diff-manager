@@ -18,7 +18,7 @@ const NumberField = ({ name, value, onChange, label }) => (
 
 NumberField.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
 };

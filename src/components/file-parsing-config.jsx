@@ -61,9 +61,9 @@ FileParsingConfig.propTypes = {
   name: PropTypes.string.isRequired,
   file: PropTypes.shape({
     path: PropTypes.string,
-    idColumn: PropTypes.number.isRequired,
-    startRow: PropTypes.number.isRequired,
-    priceColumn: PropTypes.number.isRequired,
+    idColumn: PropTypes.string.isRequired,
+    startRow: PropTypes.string.isRequired,
+    priceColumn: PropTypes.string.isRequired,
   }).isRequired,
 };
 

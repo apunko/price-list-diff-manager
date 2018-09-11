@@ -32,13 +32,14 @@ const XlsxHelper = {
     return XlsxHelper.sheetToArray(sheet);
   },
   saveSheets: (sheets) => {
+    Logger.info('Attempt to save sheets.');
     const book = XLSX.utils.book_new();
     for (let i = 0; i < sheets.length; i += 1) {
       const sheet = XLSX.utils.json_to_sheet(sheets[i].data);
       XLSX.utils.book_append_sheet(book, sheet, sheets[i].name);
     }
 
-    const saveDialog = dialog.showSaveDialog({ title: 'Save diff file' }, filename => Logger.info(filename));
+    const saveDialog = dialog.showSaveDialog();
     XLSX.writeFile(book, saveDialog);
   },
 };

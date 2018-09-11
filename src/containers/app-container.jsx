@@ -11,15 +11,15 @@ class AppContainer extends React.Component {
     this.state = {
       oldFile: {
         path: null,
-        idColumn: 4,
-        startRow: 3,
-        priceColumn: 5,
+        idColumn: '4',
+        startRow: '3',
+        priceColumn: '5',
       },
       newFile: {
         path: null,
-        idColumn: 5,
-        startRow: 3,
-        priceColumn: 5,
+        idColumn: '5',
+        startRow: '3',
+        priceColumn: '6',
       },
     };
 
