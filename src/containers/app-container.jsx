@@ -1,7 +1,7 @@
 import React from 'react';
-// import OpenDialog from '../components/open-dialog';
 import FileParsingConfig from '../components/file-parsing-config';
 import PriceService from '../services/price-service';
+import './app.css';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class AppContainer extends React.Component {
         idColumn: 5,
         startRow: 3,
       },
-      // outputDirectoryPath: null,
     };
 
     this.updateFileConfig = this.updateFileConfig.bind(this);
@@ -38,23 +37,24 @@ class AppContainer extends React.Component {
   render() {
     return (
       <>
-        <FileParsingConfig
-          title="Old file"
-          name="oldFile"
-          change={this.updateFileConfig}
-          file={this.state.oldFile}
-        />
-        <FileParsingConfig
-          title="New file"
-          name="newFile"
-          change={this.updateFileConfig}
-          file={this.state.newFile}
-        />
-        <br />
-        <button type="button" onClick={this.compareFiles}>Generate diff file</button>
-        {/* {this.state.outputDirectoryPath}
-        <OpenDialog label="Select output directory"
-        name="outputDirectoryPath" updatePath={this.updatePath} type="openDirectory" /> */}
+        <div className="file-configs-grid">
+          <FileParsingConfig
+            title="Old file"
+            name="oldFile"
+            change={this.updateFileConfig}
+            file={this.state.oldFile}
+          />
+          <FileParsingConfig
+            title="New file"
+            name="newFile"
+            change={this.updateFileConfig}
+            file={this.state.newFile}
+          />
+        </div>
+        <div className="diff-button">
+          <button type="button" onClick={this.compareFiles}>Generate diff file</button>
+        </div>
+        <hr />
       </>
     );
   }

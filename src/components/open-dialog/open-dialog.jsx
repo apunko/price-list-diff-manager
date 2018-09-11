@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './open-dialog.css';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { dialog } = require('electron').remote;
@@ -32,7 +33,7 @@ class OpenDialog extends React.Component {
   render() {
     return (
       <>
-        <button type="button" onClick={this.handleClick}>{this.props.title}</button>
+        <button className="select-price-list" type="button" onClick={this.handleClick}>{this.props.title}</button>
       </>
     );
   }

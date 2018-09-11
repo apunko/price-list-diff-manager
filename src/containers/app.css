@@ -1,0 +1,50 @@
+.file-configs-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.diff-button {
+  text-align: center;
+  margin-top: 20px;
+  height: 50px;
+}
+
+.diff-button button {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.file-configs-grid > div:nth-child(2) {
+  border-left: 1px solid grey;
+}
+
+.file-configs-grid .grid-item {
+  margin: 10px;
+  padding: 5px;
+}
+
+.file-configs-grid .grid-item button {
+  margin-right: 10px;
+}
+
+.file-configs-grid .grid-item input {
+  margin-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  width: 50px;
+  text-align: center;
+  float: right;
+}
+
+.file-configs-grid h2 {
+  text-align: center;
+}

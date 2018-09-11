@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Log from 'electron-log';
 import OpenDialog from './open-dialog';
 
 class FileParsingConfig extends React.Component {
@@ -17,41 +16,46 @@ class FileParsingConfig extends React.Component {
 
   handleChange(event) {
     const { name, value } = event.target;
-    Log.info(name);
-    Log.info(value);
     this.props.change(this.props.name, { ...this.props.file, [name]: value });
   }
 
   render() {
     return (
-      <>
+      <div>
         <h2>{this.props.title}</h2>
-        <label htmlFor="idColumn">
-          ID column number:
-          <input
-            type="number"
-            name="idColumn"
-            min="1"
-            onChange={this.handleChange}
-            value={this.props.file.idColumn}
+        <div className="grid-item">
+          <label htmlFor="idColumn">
+            ID column number:
+            <input
+              type="number"
+              name="idColumn"
+              min="1"
+              onChange={this.handleChange}
+              value={this.props.file.idColumn}
+            />
+          </label>
+        </div>
+        <div className="grid-item">
+          <label htmlFor="startRow">
+            Parsing start row:
+            <input
+              type="number"
+              name="startRow"
+              min="1"
+              onChange={this.handleChange}
+              value={this.props.file.startRow}
+            />
+          </label>
+        </div>
+        <div className="grid-item">
+          <OpenDialog
+            title={`Select ${this.props.title}`}
+            onSelect={this.handlePathUpdate}
           />
-        </label>
-        <label htmlFor="startRow">
-          Parsing start row:
-          <input
-            type="number"
-            name="startRow"
-            min="1"
-            onChange={this.handleChange}
-            value={this.props.file.startRow}
-          />
-        </label>
-        Pass to the file: {this.props.file.path ? this.props.file.path : 'No file'}
-        <OpenDialog
-          title={`Select ${this.props.title}`}
-          onSelect={this.handlePathUpdate}
-        />
-      </>
+          Selected file:
+          {this.props.file.path ? this.props.file.path : ' - '}
+        </div>
+      </div>
     );
   }
 }

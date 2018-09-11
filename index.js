@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow } = require('electron');
 require('electron-log');
 
