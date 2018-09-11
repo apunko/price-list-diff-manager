@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OpenDialog from './open-dialog';
+import NumberField from './number-field';
 
 class FileParsingConfig extends React.Component {
   constructor(props) {
@@ -23,30 +24,24 @@ class FileParsingConfig extends React.Component {
     return (
       <div>
         <h2>{this.props.title}</h2>
-        <div className="grid-item">
-          <label htmlFor="idColumn">
-            ID column number:
-            <input
-              type="number"
-              name="idColumn"
-              min="1"
-              onChange={this.handleChange}
-              value={this.props.file.idColumn}
-            />
-          </label>
-        </div>
-        <div className="grid-item">
-          <label htmlFor="startRow">
-            Parsing start row:
-            <input
-              type="number"
-              name="startRow"
-              min="1"
-              onChange={this.handleChange}
-              value={this.props.file.startRow}
-            />
-          </label>
-        </div>
+        <NumberField
+          onChange={this.handleChange}
+          value={this.props.file.idColumn}
+          name="idColumn"
+          label="ID Column number:"
+        />
+        <NumberField
+          onChange={this.handleChange}
+          value={this.props.file.priceColumn}
+          name="priceColumn"
+          label="Price Column:"
+        />
+        <NumberField
+          onChange={this.handleChange}
+          value={this.props.file.startRow}
+          name="startRow"
+          label="Parsing start row:"
+        />
         <div className="grid-item">
           <OpenDialog
             title={`Select ${this.props.title}`}
@@ -68,6 +63,7 @@ FileParsingConfig.propTypes = {
     path: PropTypes.string,
     idColumn: PropTypes.number.isRequired,
     startRow: PropTypes.number.isRequired,
+    priceColumn: PropTypes.number.isRequired,
   }).isRequired,
 };
 

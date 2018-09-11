@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './open-dialog.css';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { dialog } = require('electron').remote;

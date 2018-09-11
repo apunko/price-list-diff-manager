@@ -13,11 +13,13 @@ class AppContainer extends React.Component {
         path: null,
         idColumn: 4,
         startRow: 3,
+        priceColumn: 5,
       },
       newFile: {
         path: null,
         idColumn: 5,
         startRow: 3,
+        priceColumn: 5,
       },
     };
 
