@@ -21,24 +21,40 @@ class AppContainer extends React.Component {
         startRow: '3',
         priceColumn: '6',
       },
+      filesDiff: null,
+      diffValid: false,
     };
 
     this.updateFileConfig = this.updateFileConfig.bind(this);
     this.compareFiles = this.compareFiles.bind(this);
-    this.canGenerateDiff = this.canGenerateDiff.bind(this);
+    this.canCalculateDiff = this.canCalculateDiff.bind(this);
   }
 
   updateFileConfig(name, file) {
     if (!file) { return; }
 
-    this.setState({ [name]: file });
+    this.setState({
+      [name]: file,
+      diffValid: false,
+    });
   }
 
   compareFiles() {
-    PriceService.savePriceDiff(this.state.oldFile, this.state.newFile);
+    this.setState(prevState => (
+      {
+        filesDiff: PriceService.calculateFilesDiff(prevState.oldFile, prevState.newFile),
+        diffValid: true,
+      }
+    ));
   }
 
-  canGenerateDiff() {
+  saveFilesDiff() {
+    if (!this.state.filesDiff) { return; }
+
+    PriceService.saveFilesDiff(this.state.filesDiff);
+  }
+
+  canCalculateDiff() {
     const { oldFile, newFile } = this.state;
 
     return FileConfigHelper.isValid(oldFile) && FileConfigHelper.isValid(newFile);
@@ -62,10 +78,16 @@ class AppContainer extends React.Component {
           />
         </div>
         <div className="diff-button">
-          <button disabled={!this.canGenerateDiff()} type="button" onClick={this.compareFiles}>
-            Generate diff file
+          <button disabled={!this.canCalculateDiff()} type="button" onClick={this.compareFiles}>
+            Calculate prices diff
           </button>
         </div>
+        <button disabled={!this.state.filesDiff} type="button" onClick={this.saveFilesDiff}>
+          Save prices diff
+        </button>
+        {!this.state.diffValid
+          && <span>Prices diff is not up to date with configs.</span>
+        }
         <hr />
       </>
     );

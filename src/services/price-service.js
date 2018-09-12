@@ -9,7 +9,7 @@ const PriceService = {
 
     return rows.slice(fileConfig.startRow - 1, rows.length - 1);
   },
-  savePriceDiff: (oldConfig, newConfig) => {
+  calculateFilesDiff: (oldConfig, newConfig) => {
     const oldRows = PriceService.parseRows(oldConfig);
     const newRows = PriceService.parseRows(newConfig);
     const addedRows = ArrayDiffHelper.getAddedRows(oldRows, oldConfig.idColumn - 1, newRows, newConfig.idColumn - 1);
@@ -29,12 +29,20 @@ const PriceService = {
       (a, b) => (a < b),
     );
 
+    return {
+      addedRows,
+      removedRows,
+      risenPriceRows,
+      cheaperRows,
+    };
+  },
+  saveFilesDiff: (priceDiff) => {
     XlsxHelper.saveSheets(
       [
-        { data: addedRows, name: 'Added items' },
-        { data: removedRows, name: 'Removed items' },
-        { data: risenPriceRows, name: 'New Price +' },
-        { data: cheaperRows, name: 'New Price -' },
+        { data: priceDiff.addedRows, name: 'Added items' },
+        { data: priceDiff.removedRows, name: 'Removed items' },
+        { data: priceDiff.risenPriceRows, name: 'New Price +' },
+        { data: priceDiff.cheaperRows, name: 'New Price -' },
       ],
     );
   },
