@@ -1,6 +1,6 @@
 {
-  "name": "price-list-diff-manager",
-  "productName": "price-list-diff-manager",
+  "name": "pm",
+  "productName": "pm",
   "version": "1.0.0",
   "description": "Price list diff manager",
   "main": "index.js",
@@ -9,10 +9,10 @@
     "start": "electron .",
     "prod": "IS_PROD=true yarn start",
     "build": "webpack --mode production",
-    "start-react": "webpack-dev-server --open --mode development",
+    "rstart": "webpack-dev-server --open --mode development",
     "lint": "eslint --ext js --ext jsx src",
-    "dist": "IS_PROD=true electron-packager . price-list-diff-manager --platform win32 --arch x64 --out out/",
-    "exe-build": "electron-installer-windows --src out/price-list-diff-manager-win32-x64/ --dest out/installers/"
+    "dist": "IS_PROD=true electron-packager . pm --asar --platform win32 --arch x64 --out out/",
+    "build-exe": "electron-installer-windows --src out/pm-win32-x64/ --dest out/installers/"
   },
   "husky": {
     "hooks": {
