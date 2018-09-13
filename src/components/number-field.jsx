@@ -9,6 +9,7 @@ const NumberField = ({ name, value, onChange, label }) => (
         type="number"
         name={name}
         min="1"
+        className="number-field"
         onChange={onChange}
         value={value}
       />

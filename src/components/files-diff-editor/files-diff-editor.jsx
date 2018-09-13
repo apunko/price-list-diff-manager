@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './files-diff-editor.css';
 
 class FilesDiffEditor extends React.Component {
   static prepareTheadRows(rowDataLength, idColumn, priceColumn) {
@@ -29,6 +30,7 @@ class FilesDiffEditor extends React.Component {
             type="number"
             step="0.01"
             min="0"
+            className="number-field"
             name={rowIndex}
             onChange={handleChange}
             value={chargeRates[rowIndex]}
@@ -37,7 +39,7 @@ class FilesDiffEditor extends React.Component {
       );
       rowData.push(
         <td key="new_price">
-          {Number(chargeRates[rowIndex]) * Number(row.data[priceColumn - 1])}
+          {(Number(chargeRates[rowIndex]) * Number(row.data[priceColumn - 1])).toFixed(2)}
         </td>,
       );
 
