@@ -2,6 +2,7 @@ import React from 'react';
 import FileParsingConfig from '../components/file-parsing-config';
 import PriceService from '../services/price-service';
 import FileConfigHelper from '../helpers/file-config-helper';
+import FilesDiffEditor from '../components/files-diff-editor';
 import './app.css';
 
 class AppContainer extends React.Component {
@@ -21,8 +22,12 @@ class AppContainer extends React.Component {
         startRow: '3',
         priceColumn: '6',
       },
-      filesDiff: null,
-      diffValid: false,
+      filesDiff: {
+        addedRows: null,
+        removedRows: null,
+        priceChangedRows: null,
+      },
+      configUpdated: false,
     };
 
     this.updateFileConfig = this.updateFileConfig.bind(this);
@@ -35,7 +40,7 @@ class AppContainer extends React.Component {
 
     this.setState({
       [name]: file,
-      diffValid: false,
+      configUpdated: false,
     });
   }
 
@@ -43,13 +48,13 @@ class AppContainer extends React.Component {
     this.setState(prevState => (
       {
         filesDiff: PriceService.calculateFilesDiff(prevState.oldFile, prevState.newFile),
-        diffValid: true,
+        configUpdated: true,
       }
     ));
   }
 
   saveFilesDiff() {
-    if (!this.state.filesDiff) { return; }
+    if (!this.state.filesDiff.addedRows) { return; }
 
     PriceService.saveFilesDiff(this.state.filesDiff);
   }
@@ -61,6 +66,8 @@ class AppContainer extends React.Component {
   }
 
   render() {
+    const { newFile, oldFile, filesDiff } = this.state;
+
     return (
       <>
         <div className="file-configs-grid">
@@ -68,13 +75,13 @@ class AppContainer extends React.Component {
             title="Old file"
             name="oldFile"
             change={this.updateFileConfig}
-            file={this.state.oldFile}
+            file={oldFile}
           />
           <FileParsingConfig
             title="New file"
             name="newFile"
             change={this.updateFileConfig}
-            file={this.state.newFile}
+            file={newFile}
           />
         </div>
         <div className="diff-button">
@@ -82,13 +89,22 @@ class AppContainer extends React.Component {
             Calculate prices diff
           </button>
         </div>
-        <button disabled={!this.state.filesDiff} type="button" onClick={this.saveFilesDiff}>
+        <button disabled={!filesDiff.addedRows} type="button" onClick={this.saveFilesDiff}>
           Save prices diff
         </button>
-        {!this.state.diffValid
-          && <span>Prices diff is not up to date with configs.</span>
+        {!this.state.configUpdated
+          && <span>Configs were updated. Prices diff may not be up to date.</span>
         }
         <hr />
+        {filesDiff.addedRows
+          && (
+          <FilesDiffEditor
+            idColumn={newFile.idColumn}
+            priceColumn={newFile.priceColumn}
+            rows={filesDiff.priceChangedRows}
+            chargeRates={Array(filesDiff.priceChangedRows.length).fill('123')}
+          />)
+        }
       </>
     );
   }
