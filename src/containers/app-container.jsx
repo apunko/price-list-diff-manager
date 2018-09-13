@@ -11,13 +11,13 @@ class AppContainer extends React.Component {
 
     this.state = {
       oldFile: {
-        path: null,
+        path: '/Users/mac-082-71/Downloads/Прайс№1(старый).xls',
         idColumn: '4',
         startRow: '3',
         priceColumn: '5',
       },
       newFile: {
-        path: null,
+        path: '/Users/mac-082-71/Downloads/Прайс№2 (новый).xls',
         idColumn: '5',
         startRow: '3',
         priceColumn: '6',
@@ -27,12 +27,14 @@ class AppContainer extends React.Component {
         removedRows: null,
         priceChangedRows: null,
       },
+      chargeRates: null,
       configUpdated: false,
     };
 
     this.updateFileConfig = this.updateFileConfig.bind(this);
     this.compareFiles = this.compareFiles.bind(this);
     this.canCalculateDiff = this.canCalculateDiff.bind(this);
+    this.handleChargeRateChange = this.handleChargeRateChange.bind(this);
   }
 
   updateFileConfig(name, file) {
@@ -45,16 +47,19 @@ class AppContainer extends React.Component {
   }
 
   compareFiles() {
-    this.setState(prevState => (
-      {
-        filesDiff: PriceService.calculateFilesDiff(prevState.oldFile, prevState.newFile),
+    this.setState(((prevState) => {
+      const filesDiff = PriceService.calculateFilesDiff(prevState.oldFile, prevState.newFile);
+
+      return {
+        filesDiff,
+        chargeRates: Array(filesDiff.priceChangedRows.length).fill('1.30'),
         configUpdated: true,
-      }
-    ));
+      };
+    }));
   }
 
   saveFilesDiff() {
-    if (!this.state.filesDiff.addedRows) { return; }
+    if (!this.state.chargeRates) { return; }
 
     PriceService.saveFilesDiff(this.state.filesDiff);
   }
@@ -65,8 +70,18 @@ class AppContainer extends React.Component {
     return FileConfigHelper.isValid(oldFile) && FileConfigHelper.isValid(newFile);
   }
 
+  handleChargeRateChange(event) {
+    event.persist();
+
+    this.setState(prevState => ({
+      chargeRates: prevState.chargeRates.map((rate, index) => (
+        index === Number(event.target.name) ? event.target.value : rate
+      )),
+    }));
+  }
+
   render() {
-    const { newFile, oldFile, filesDiff } = this.state;
+    const { newFile, oldFile, filesDiff, chargeRates } = this.state;
 
     return (
       <>
@@ -89,20 +104,21 @@ class AppContainer extends React.Component {
             Calculate prices diff
           </button>
         </div>
-        <button disabled={!filesDiff.addedRows} type="button" onClick={this.saveFilesDiff}>
+        <button disabled={!chargeRates} type="button" onClick={this.saveFilesDiff}>
           Save prices diff
         </button>
         {!this.state.configUpdated
           && <span>Configs were updated. Prices diff may not be up to date.</span>
         }
         <hr />
-        {filesDiff.addedRows
+        {chargeRates
           && (
           <FilesDiffEditor
+            handleChange={this.handleChargeRateChange}
             idColumn={newFile.idColumn}
             priceColumn={newFile.priceColumn}
             rows={filesDiff.priceChangedRows}
-            chargeRates={Array(filesDiff.priceChangedRows.length).fill('123')}
+            chargeRates={chargeRates}
           />)
         }
       </>
