@@ -33,8 +33,10 @@ class AppContainer extends React.Component {
 
     this.updateFileConfig = this.updateFileConfig.bind(this);
     this.compareFiles = this.compareFiles.bind(this);
+    this.saveFilesDiff = this.saveFilesDiff.bind(this);
     this.canCalculateDiff = this.canCalculateDiff.bind(this);
     this.handleChargeRateChange = this.handleChargeRateChange.bind(this);
+    this.saveFilesDiff = this.saveFilesDiff.bind(this);
   }
 
   updateFileConfig(name, file) {

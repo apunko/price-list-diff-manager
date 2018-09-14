@@ -1,5 +1,6 @@
 import ArrayDiffHelper from '../helpers/array-diff-helper';
 import XlsxHelper from '../helpers/xlsx-helper';
+import Logger from '../helpers/logger';
 
 const PriceService = {
   parseRows: (fileConfig) => {
@@ -40,20 +41,25 @@ const PriceService = {
     };
   },
   saveFilesDiff: (priceDiff) => {
+    Logger.info('Prepare priceDiff data to export');
     XlsxHelper.saveSheets(
       [
         { data: priceDiff.addedRows, name: 'Added items' },
         { data: priceDiff.removedRows, name: 'Removed items' },
         {
-          data: priceDiff.priceChangedRows.reduce((newPriceUpRows, row) => (
-            row.up ? newPriceUpRows.push(row.data) : null
-          ), []),
+          data: priceDiff.priceChangedRows.reduce((newPriceUpRows, row) => {
+            if (row.up) { newPriceUpRows.push(row.data); }
+
+            return newPriceUpRows;
+          }, []),
           name: 'New Price +',
         },
         {
-          data: priceDiff.priceChangedRows.reduce((newPriceDownRows, row) => (
-            !row.up ? newPriceDownRows.push(row.data) : null
-          ), []),
+          data: priceDiff.priceChangedRows.reduce((newPriceDownRows, row) => {
+            if (!row.up) { newPriceDownRows.push(row.data); }
+
+            return newPriceDownRows;
+          }, []),
           name: 'New Price -',
         },
       ],
