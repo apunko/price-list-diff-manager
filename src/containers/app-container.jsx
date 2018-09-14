@@ -38,6 +38,7 @@ class AppContainer extends React.Component {
     };
 
     this.updateCatalog = this.updateCatalog.bind(this);
+    this.canUpdateCatalog = this.canUpdateCatalog.bind(this);
     this.updateFileConfig = this.updateFileConfig.bind(this);
     this.compareFiles = this.compareFiles.bind(this);
     this.saveFilesDiff = this.saveFilesDiff.bind(this);
@@ -87,6 +88,12 @@ class AppContainer extends React.Component {
     return FileConfigHelper.isValid(oldFile) && FileConfigHelper.isValid(newFile);
   }
 
+  canUpdateCatalog() {
+    const { chargeRates, catalogFile } = this.state;
+
+    return FileConfigHelper.isValid(catalogFile) && chargeRates;
+  }
+
   handleChargeRateChange(event) {
     const { name, value } = event.target;
 
@@ -120,6 +127,7 @@ class AppContainer extends React.Component {
             name="catalogFile"
             change={this.updateCatalog}
             file={catalogFile}
+            canUpdateCatalog={this.canUpdateCatalog}
           />
         </div>
         <div className="diff-button">
@@ -130,7 +138,7 @@ class AppContainer extends React.Component {
         <button disabled={!chargeRates} type="button" onClick={this.saveFilesDiff}>
           Save prices diff
         </button>
-        {this.state.configUpdated && !chargeRates
+        {this.state.configUpdated && chargeRates
           && <span>Configs were updated. Prices diff may not be up to date.</span>
         }
         <hr />

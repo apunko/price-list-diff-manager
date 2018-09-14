@@ -23,6 +23,9 @@ class CatalogConfig extends React.Component {
     return (
       <div>
         <h2>{this.props.title}</h2>
+        <button disabled={!this.props.canUpdateCatalog()} type="button">
+          Update Catalog
+        </button>
         <NumberInput
           onChange={this.handleChange}
           value={this.props.file.idColumn}
@@ -48,6 +51,7 @@ class CatalogConfig extends React.Component {
 CatalogConfig.propTypes = {
   title: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
+  canUpdateCatalog: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   file: PropTypes.shape({
     path: PropTypes.string,
