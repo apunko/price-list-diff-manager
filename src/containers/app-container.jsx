@@ -59,7 +59,7 @@ class AppContainer extends React.Component {
 
     this.setState({
       [name]: file,
-      configUpdated: false,
+      configUpdated: true,
     });
   }
 
@@ -70,7 +70,7 @@ class AppContainer extends React.Component {
       return {
         filesDiff,
         chargeRates: Array(filesDiff.priceChangedRows.length).fill('1.30'),
-        configUpdated: true,
+        configUpdated: false,
       };
     }));
   }
@@ -130,7 +130,7 @@ class AppContainer extends React.Component {
         <button disabled={!chargeRates} type="button" onClick={this.saveFilesDiff}>
           Save prices diff
         </button>
-        {!this.state.configUpdated
+        {this.state.configUpdated && !chargeRates
           && <span>Configs were updated. Prices diff may not be up to date.</span>
         }
         <hr />
