@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NumberField = ({ name, value, onChange, label }) => (
+const NumberInput = ({ name, value, onChange, label }) => (
   <div className="grid-item">
     <label htmlFor={name}>
       {label}
@@ -17,11 +17,11 @@ const NumberField = ({ name, value, onChange, label }) => (
   </div>
 );
 
-NumberField.propTypes = {
+NumberInput.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
 };
 
-export default NumberField;
+export default NumberInput;

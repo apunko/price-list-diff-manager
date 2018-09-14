@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OpenDialog from './open-dialog';
-import NumberField from './number-field';
+import { NumberInput, SelectFile } from './fields';
 
 class FileParsingConfig extends React.Component {
   constructor(props) {
@@ -24,32 +23,29 @@ class FileParsingConfig extends React.Component {
     return (
       <div>
         <h2>{this.props.title}</h2>
-        <NumberField
+        <NumberInput
           onChange={this.handleChange}
           value={this.props.file.idColumn}
           name="idColumn"
           label="ID Column number:"
         />
-        <NumberField
+        <NumberInput
           onChange={this.handleChange}
           value={this.props.file.priceColumn}
           name="priceColumn"
           label="Price Column:"
         />
-        <NumberField
+        <NumberInput
           onChange={this.handleChange}
           value={this.props.file.startRow}
           name="startRow"
           label="Parsing start row:"
         />
-        <div className="grid-item">
-          <OpenDialog
-            title={`Select ${this.props.title}`}
-            onSelect={this.handlePathUpdate}
-          />
-          Selected file:
-          {this.props.file.path ? this.props.file.path : ' - '}
-        </div>
+        <SelectFile
+          title={this.props.title}
+          path={this.props.file.path}
+          onSelect={this.handlePathUpdate}
+        />
       </div>
     );
   }
