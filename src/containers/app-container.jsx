@@ -71,11 +71,11 @@ class AppContainer extends React.Component {
   }
 
   handleChargeRateChange(event) {
-    event.persist();
+    const { name, value } = event.target;
 
     this.setState(prevState => ({
       chargeRates: prevState.chargeRates.map((rate, index) => (
-        index === Number(event.target.name) ? event.target.value : rate
+        index === Number(name) ? value : rate
       )),
     }));
   }
