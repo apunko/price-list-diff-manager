@@ -27,7 +27,7 @@ class CatalogConfig extends React.Component {
           onChange={this.handleChange}
           value={this.props.file.idColumn}
           name="idColumn"
-          label="ID Column number:"
+          label="ID Column:"
         />
         <NumberInput
           onChange={this.handleChange}
