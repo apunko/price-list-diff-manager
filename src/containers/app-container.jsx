@@ -2,6 +2,7 @@ import React from 'react';
 import FileParsingConfig from '../components/file-parsing-config';
 import PriceService from '../services/price-service';
 import FileConfigHelper from '../helpers/file-config-helper';
+import CatalogConfig from '../components/catalog-config';
 import FilesDiffEditor from '../components/files-diff-editor';
 import './app.css';
 
@@ -22,6 +23,11 @@ class AppContainer extends React.Component {
         startRow: '3',
         priceColumn: '6',
       },
+      catalogFile: {
+        path: null,
+        idColumn: '5',
+        priceColumn: '6',
+      },
       filesDiff: {
         addedRows: null,
         removedRows: null,
@@ -31,12 +37,21 @@ class AppContainer extends React.Component {
       configUpdated: false,
     };
 
+    this.updateCatalog = this.updateCatalog.bind(this);
     this.updateFileConfig = this.updateFileConfig.bind(this);
     this.compareFiles = this.compareFiles.bind(this);
     this.saveFilesDiff = this.saveFilesDiff.bind(this);
     this.canCalculateDiff = this.canCalculateDiff.bind(this);
     this.handleChargeRateChange = this.handleChargeRateChange.bind(this);
     this.saveFilesDiff = this.saveFilesDiff.bind(this);
+  }
+
+  updateCatalog(name, file) {
+    if (!file) { return; }
+
+    this.setState({
+      [name]: file,
+    });
   }
 
   updateFileConfig(name, file) {
@@ -83,7 +98,7 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    const { newFile, oldFile, filesDiff, chargeRates } = this.state;
+    const { newFile, oldFile, filesDiff, chargeRates, catalogFile } = this.state;
 
     return (
       <>
@@ -99,6 +114,12 @@ class AppContainer extends React.Component {
             name="newFile"
             change={this.updateFileConfig}
             file={newFile}
+          />
+          <CatalogConfig
+            title="Catalog"
+            name="catalogFile"
+            change={this.updateCatalog}
+            file={catalogFile}
           />
         </div>
         <div className="diff-button">
