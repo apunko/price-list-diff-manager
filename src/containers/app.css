@@ -3,14 +3,24 @@
   grid-template-columns: 35% 35% 30%;
 }
 
-.diff-button {
+.button {
   text-align: center;
   margin-top: 20px;
   height: 50px;
 }
 
-.diff-button button {
-  background-color: #4CAF50;
+.buttons-group {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.buttons-group .button {
+  display: inline;
+  margin-left: 20px;
+}
+
+.button button {
+  display: inline;
   border: none;
   border-radius: 8px;
   color: white;
@@ -21,7 +31,15 @@
   cursor: pointer;
 }
 
-.diff-button button:disabled {
+.button.diff-button button {
+  background-color: #4CAF50;
+}
+
+.button.file-button button {
+  background-color: #008CBA;
+}
+
+.button button:disabled {
   background: #dddddd;
   cursor: default;
 }

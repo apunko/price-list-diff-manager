@@ -8,7 +8,7 @@ const SelectFile = ({ title, path, onSelect }) => (
       title={`Select ${title}`}
       onSelect={onSelect}
     />
-    <div>
+    <div style={{ marginTop: '5px' }}>
       {`Selected file: ${path || '-'}`}
     </div>
   </div>

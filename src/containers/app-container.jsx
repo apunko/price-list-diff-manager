@@ -127,17 +127,25 @@ class AppContainer extends React.Component {
             name="catalogFile"
             change={this.updateCatalog}
             file={catalogFile}
-            canUpdateCatalog={this.canUpdateCatalog}
           />
         </div>
-        <div className="diff-button">
-          <button disabled={!this.canCalculateDiff()} type="button" onClick={this.compareFiles}>
-            Calculate prices diff
-          </button>
+        <div className="buttons-group">
+          <div className="button diff-button">
+            <button disabled={!this.canCalculateDiff()} type="button" onClick={this.compareFiles}>
+              Calculate prices diff
+            </button>
+          </div>
+          <div className="button file-button">
+            <button disabled={!chargeRates} type="button" onClick={this.saveFilesDiff}>
+              Save prices diff
+            </button>
+          </div>
+          <div className="button file-button">
+            <button disabled={!this.canUpdateCatalog()} type="button">
+              Update Catalog
+            </button>
+          </div>
         </div>
-        <button disabled={!chargeRates} type="button" onClick={this.saveFilesDiff}>
-          Save prices diff
-        </button>
         {this.state.configUpdated && chargeRates
           && <span>Configs were updated. Prices diff may not be up to date.</span>
         }
