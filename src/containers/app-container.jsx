@@ -5,6 +5,7 @@ import FileConfigHelper from '../helpers/file-config-helper';
 import CatalogConfig from '../components/catalog-config';
 import FilesDiffEditor from '../components/files-diff-editor';
 import './app.css';
+import XlsxHelper from '../helpers/xlsx-helper';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class AppContainer extends React.Component {
         priceColumn: '6',
       },
       catalogFile: {
-        path: null,
+        path: '/Users/mac-082-71/Downloads/set_of_files/catalog_test/Catalog_test.xlsx',
         idColumn: '5',
         priceColumn: '6',
       },
@@ -45,6 +46,7 @@ class AppContainer extends React.Component {
     this.canCalculateDiff = this.canCalculateDiff.bind(this);
     this.handleChargeRateChange = this.handleChargeRateChange.bind(this);
     this.saveFilesDiff = this.saveFilesDiff.bind(this);
+    this.updateCatalogFile = this.updateCatalogFile.bind(this);
   }
 
   updateCatalog(name, file) {
@@ -80,6 +82,23 @@ class AppContainer extends React.Component {
     if (!this.state.chargeRates) { return; }
 
     PriceService.saveFilesDiff(this.state.filesDiff);
+  }
+
+  updateCatalogFile() {
+    if (!this.canUpdateCatalog) { return; }
+
+    const rowsObjects = [
+      {
+        id: 'WSCG001',
+        price: 300000000000,
+      },
+      {
+        id: 'CCG002',
+        price: 300000000000,
+      },
+    ];
+
+    XlsxHelper.parseSheetRows(this.state.catalogFile.path, rowsObjects);
   }
 
   canCalculateDiff() {
@@ -141,7 +160,7 @@ class AppContainer extends React.Component {
             </button>
           </div>
           <div className="button file-button">
-            <button disabled={!this.canUpdateCatalog()} type="button">
+            <button disabled={!this.canUpdateCatalog()} type="button" onClick={this.updateCatalogFile}>
               Update Catalog
             </button>
           </div>

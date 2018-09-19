@@ -14,6 +14,16 @@ const ArrayDiffHelper = {
   isInRows: (rows, idColumn, checkRowId) => (
     rows.some(row => row[idColumn] === checkRowId)
   ),
+  // removeEmptyItems: (rows) => {
+  //   let min = 0;
+  //   for (let i = rows.length - 1; i >= 0; i -= 1) {
+  //     const row = rows[i];
+  //     let j = row.length - 1;
+  //     while (j >= 0 && !row[j]) {
+  //       j -= 1;
+  //     }
+  //   }
+  // }
 };
 
 export default ArrayDiffHelper;

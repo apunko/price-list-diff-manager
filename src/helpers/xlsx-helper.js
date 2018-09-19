@@ -11,6 +11,7 @@ const XlsxHelper = {
     let rowNum;
     let colNum;
     const range = XLSX.utils.decode_range(sheet['!ref']);
+    // debugger;
     for (rowNum = range.s.r; rowNum <= range.e.r; rowNum += 1) {
       row = [];
       for (colNum = range.s.c; colNum <= range.e.c; colNum += 1) {
@@ -30,6 +31,29 @@ const XlsxHelper = {
     Logger.info(`Read: ${path};\n Sheets names: ${file.SheetNames}`);
 
     return XlsxHelper.sheetToArray(sheet);
+  },
+  parseSheetRows: (path, rowsObjects) => {
+    const file = XLSX.readFile(path);
+    file.SheetNames.forEach((sheetName) => {
+      const sheet = file.Sheets[sheetName];
+      const range = XLSX.utils.decode_range(sheet['!ref']);
+      const sheetLength = range.e.r;
+      for (let i = 1; i <= sheetLength; i += 1) {
+        const r = rowsObjects.find(row => row.id === sheet[`F${i}`].v);
+
+        if (r) {
+          sheet[`B${i}`] = {
+            t: 'n',
+            v: r.price,
+          };
+        }
+      }
+    });
+
+    const saveDialog = dialog.showSaveDialog({ defaultPath: 'Catalog_updated.xlsx' });
+    if (!saveDialog) { return; }
+
+    XLSX.writeFile(file, saveDialog);
   },
   saveSheets: (sheets) => {
     Logger.info('Attempt to save sheets.');
