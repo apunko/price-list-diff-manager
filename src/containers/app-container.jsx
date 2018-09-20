@@ -4,8 +4,8 @@ import PriceService from '../services/price-service';
 import FileConfigHelper from '../helpers/file-config-helper';
 import CatalogConfig from '../components/catalog-config';
 import FilesDiffEditor from '../components/files-diff-editor';
+import CatalogService from '../services/catalog-service';
 import './app.css';
-import XlsxHelper from '../helpers/xlsx-helper';
 
 class AppContainer extends React.Component {
   constructor(props) {
@@ -26,8 +26,8 @@ class AppContainer extends React.Component {
       },
       catalogFile: {
         path: '/Users/mac-082-71/Downloads/set_of_files/catalog_test/Catalog_test.xlsx',
-        idColumn: '5',
-        priceColumn: '6',
+        idColumn: '6',
+        priceColumn: '2',
       },
       filesDiff: {
         addedRows: null,
@@ -87,18 +87,7 @@ class AppContainer extends React.Component {
   updateCatalogFile() {
     if (!this.canUpdateCatalog) { return; }
 
-    const rowsObjects = [
-      {
-        id: 'WSCG001',
-        price: 300000000000,
-      },
-      {
-        id: 'CCG002',
-        price: 300000000000,
-      },
-    ];
-
-    XlsxHelper.parseSheetRows(this.state.catalogFile.path, rowsObjects);
+    CatalogService.updateCatalog(this.state);
   }
 
   canCalculateDiff() {

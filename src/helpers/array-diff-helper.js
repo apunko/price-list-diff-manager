@@ -14,6 +14,14 @@ const ArrayDiffHelper = {
   isInRows: (rows, idColumn, checkRowId) => (
     rows.some(row => row[idColumn] === checkRowId)
   ),
+  getNewPriceObjects: (priceChangedRows, chargeRates, fileConfig) => (
+    priceChangedRows.map((row, index) => (
+      {
+        id: row.data[fileConfig.idColumn - 1],
+        price: (Number(chargeRates[index]) * Number(row.data[fileConfig.priceColumn - 1])).toFixed(2),
+      }
+    ))
+  ),
   // removeEmptyItems: (rows) => {
   //   let min = 0;
   //   for (let i = rows.length - 1; i >= 0; i -= 1) {

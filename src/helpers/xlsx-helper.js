@@ -32,17 +32,19 @@ const XlsxHelper = {
 
     return XlsxHelper.sheetToArray(sheet);
   },
-  parseSheetRows: (path, rowsObjects) => {
+  updateCatalog: (path, rowsObjects, idSymbol, priceSymbol) => {
+    Logger.info(`Start read catalog${path}`);
     const file = XLSX.readFile(path);
     file.SheetNames.forEach((sheetName) => {
       const sheet = file.Sheets[sheetName];
       const range = XLSX.utils.decode_range(sheet['!ref']);
       const sheetLength = range.e.r;
       for (let i = 1; i <= sheetLength; i += 1) {
-        const r = rowsObjects.find(row => row.id === sheet[`F${i}`].v);
+        const r = rowsObjects.find(row => String(row.id) === String(sheet[`${idSymbol}${i}`].v));
 
         if (r) {
-          sheet[`B${i}`] = {
+          Logger.info(`Found ${r.id}. updating price ...`);
+          sheet[`${priceSymbol}${i}`] = {
             t: 'n',
             v: r.price,
           };
@@ -53,6 +55,7 @@ const XlsxHelper = {
     const saveDialog = dialog.showSaveDialog({ defaultPath: 'Catalog_updated.xlsx' });
     if (!saveDialog) { return; }
 
+    Logger.info('Start write updated catalog');
     XLSX.writeFile(file, saveDialog);
   },
   saveSheets: (sheets) => {
