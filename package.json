@@ -6,12 +6,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nf start",
-    "start": "electron .",
-    "prod": "IS_PROD=true yarn start",
+    "start": "IS_DEV=true electron .",
+    "prod": "yarn start",
     "build": "webpack --mode production",
     "rstart": "webpack-dev-server --open --mode development",
     "lint": "eslint --ext js --ext jsx src",
-    "dist": "IS_PROD=true electron-packager . pm --asar --platform win32 --arch x64 --out out/",
+    "dist": "electron-packager . pm --asar --overwrite --platform win32 --arch x64 --out out/",
     "build-exe": "electron-installer-windows --src out/pm-win32-x64/ --dest out/installers/"
   },
   "husky": {

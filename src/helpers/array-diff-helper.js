@@ -8,7 +8,7 @@ const ArrayDiffHelper = {
     newRows.filter((newRow) => {
       const oldRow = oldRows.find(row => row[oldConfig.idColumn] === newRow[newConfig.idColumn]);
 
-      return oldRow ? compare(oldRow[oldConfig.priceColumn], newRow[newConfig.priceColumn]) : false;
+      return oldRow ? compare(Number(oldRow[oldConfig.priceColumn]), Number(newRow[newConfig.priceColumn])) : false;
     })
   ),
   isInRows: (rows, idColumn, checkRowId) => (
