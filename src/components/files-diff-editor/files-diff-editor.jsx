@@ -47,10 +47,6 @@ class FilesDiffEditor extends React.Component {
     });
   }
 
-  constructor(props) { // eslint-disable-line
-    super(props);
-  }
-
   render() {
     const { rows, idColumn, priceColumn, chargeRates, handleChange } = this.props;
     const theadRows = FilesDiffEditor.prepareTheadRows(rows[0].data.length, idColumn, priceColumn);

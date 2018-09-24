@@ -28,6 +28,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-tabs": "^2.3.0",
     "xlsx": "^0.14.0"
   },
   "devDependencies": {

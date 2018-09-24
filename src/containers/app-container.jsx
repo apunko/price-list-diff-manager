@@ -3,8 +3,8 @@ import FileParsingConfig from '../components/file-parsing-config';
 import PriceService from '../services/price-service';
 import FileConfigHelper from '../helpers/file-config-helper';
 import CatalogConfig from '../components/catalog-config';
-import FilesDiffEditor from '../components/files-diff-editor';
 import CatalogService from '../services/catalog-service';
+import FilesDiffTabs from '../components/files-diff-tabs';
 import './app.css';
 
 class AppContainer extends React.Component {
@@ -160,11 +160,11 @@ class AppContainer extends React.Component {
         <hr />
         {chargeRates
           && (
-          <FilesDiffEditor
-            handleChange={this.handleChargeRateChange}
-            idColumn={newFile.idColumn}
-            priceColumn={newFile.priceColumn}
-            rows={filesDiff.priceChangedRows}
+          <FilesDiffTabs
+            handleChargeRateChange={this.handleChargeRateChange}
+            newFile={newFile}
+            oldFile={oldFile}
+            filesDiff={filesDiff}
             chargeRates={chargeRates}
           />)
         }
