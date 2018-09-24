@@ -71,8 +71,8 @@ FilesDiffEditor.propTypes = {
   idColumn: PropTypes.string.isRequired,
   priceColumn: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  rows: PropTypes.array.isRequired, // eslint-disable-line
-  chargeRates: PropTypes.array.isRequired, // eslint-disable-line
+  rows: PropTypes.PropTypes.arrayOf(PropTypes.object).isRequired,
+  chargeRates: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default FilesDiffEditor;

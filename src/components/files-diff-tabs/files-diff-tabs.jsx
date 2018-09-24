@@ -81,7 +81,7 @@ FilesDiffTabs.propTypes = {
     removedRows: PropTypes.array.isRequired,
   }).isRequired,
   handleChargeRateChange: PropTypes.func.isRequired,
-  chargeRates: PropTypes.array.isRequired, // eslint-disable-line
+  chargeRates: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default FilesDiffTabs;

@@ -50,7 +50,7 @@ FileRowsTable.propTypes = {
     idColumn: PropTypes.string.isRequired,
     priceColumn: PropTypes.string.isRequired,
   }).isRequired,
-  rows: PropTypes.array.isRequired, // eslint-disable-line
+  rows: PropTypes.arrayOf(PropTypes.array).isRequired,
 };
 
 export default FileRowsTable;
