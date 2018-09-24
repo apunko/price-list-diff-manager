@@ -14,14 +14,23 @@ const ArrayDiffHelper = {
   isInRows: (rows, idColumn, checkRowId) => (
     rows.some(row => row[idColumn] === checkRowId)
   ),
-  getNewPriceObjects: (priceChangedRows, chargeRates, fileConfig) => (
-    priceChangedRows.map((row, index) => (
+  getNewPriceObjects: (filesDiff, chargeRates, newFile, oldFile) => {
+    const newPriceObjects = filesDiff.priceChangedRows.map((row, index) => (
       {
-        id: row.data[fileConfig.idColumn - 1],
-        price: (Number(chargeRates[index]) * Number(row.data[fileConfig.priceColumn - 1])).toFixed(2),
+        id: row.data[newFile.idColumn - 1],
+        price: (Number(chargeRates[index]) * Number(row.data[newFile.priceColumn - 1])).toFixed(2),
       }
-    ))
-  ),
+    ));
+
+    const zeroPriceObjects = filesDiff.removedRows.map(row => (
+      {
+        id: row[oldFile.idColumn - 1],
+        price: 0,
+      }
+    ));
+
+    return newPriceObjects.concat(zeroPriceObjects);
+  },
 };
 
 export default ArrayDiffHelper;
