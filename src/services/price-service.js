@@ -20,14 +20,14 @@ const PriceService = {
       { idColumn: oldConfig.idColumn - 1, priceColumn: oldConfig.priceColumn - 1 },
       newRows,
       { idColumn: newConfig.idColumn - 1, priceColumn: newConfig.priceColumn - 1 },
-      (a, b) => (a > b),
+      (a, b) => (a < b),
     );
     const newPriceDownRows = ArrayDiffHelper.getPriceDiffRows(
       oldRows,
       { idColumn: oldConfig.idColumn - 1, priceColumn: oldConfig.priceColumn - 1 },
       newRows,
       { idColumn: newConfig.idColumn - 1, priceColumn: newConfig.priceColumn - 1 },
-      (a, b) => (a < b),
+      (a, b) => (a > b),
     );
 
     const priceChangedRows = newPriceUprows
