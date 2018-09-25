@@ -36,6 +36,7 @@ class AppContainer extends React.Component {
       },
       chargeRates: null,
       configUpdated: false,
+      processing: false,
     };
 
     this.updateCatalog = this.updateCatalog.bind(this);
@@ -67,15 +68,20 @@ class AppContainer extends React.Component {
   }
 
   compareFiles() {
-    this.setState(((prevState) => {
-      const filesDiff = PriceService.calculateFilesDiff(prevState.oldFile, prevState.newFile);
+    this.setState({ processing: true });
 
-      return {
-        filesDiff,
-        chargeRates: Array(filesDiff.priceChangedRows.length).fill('1.30'),
-        configUpdated: false,
-      };
-    }));
+    setTimeout(() => {
+      this.setState(((prevState) => {
+        const filesDiff = PriceService.calculateFilesDiff(prevState.oldFile, prevState.newFile);
+
+        return {
+          filesDiff,
+          chargeRates: Array(filesDiff.priceChangedRows.length).fill('1.30'),
+          configUpdated: false,
+          processing: false,
+        };
+      }));
+    }, 300);
   }
 
   saveFilesDiff() {
@@ -113,10 +119,10 @@ class AppContainer extends React.Component {
   }
 
   render() {
-    const { newFile, oldFile, filesDiff, chargeRates, catalogFile } = this.state;
+    const { newFile, oldFile, filesDiff, chargeRates, catalogFile, processing } = this.state;
 
     return (
-      <>
+      <div className={`processing-${processing}`}>
         <div className="file-configs-grid">
           <FileParsingConfig
             title="Old file"
@@ -158,17 +164,19 @@ class AppContainer extends React.Component {
           && <span>Configs were updated. Prices diff may not be up to date.</span>
         }
         <hr />
-        {chargeRates
-          && (
-          <FilesDiffTabs
-            handleChargeRateChange={this.handleChargeRateChange}
-            newFile={newFile}
-            oldFile={oldFile}
-            filesDiff={filesDiff}
-            chargeRates={chargeRates}
-          />)
+        {
+          (chargeRates && !processing)
+            ? (
+              <FilesDiffTabs
+                handleChargeRateChange={this.handleChargeRateChange}
+                newFile={newFile}
+                oldFile={oldFile}
+                filesDiff={filesDiff}
+                chargeRates={chargeRates}
+              />
+            ) : processing && <h2>Processing...</h2>
         }
-      </>
+      </div>
     );
   }
 }
