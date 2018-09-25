@@ -26,6 +26,8 @@ class FileRowsTable extends React.Component {
   }
 
   render() {
+    if (this.props.rows.length === 0) { return <>No items</>; }
+
     const { file, rows } = this.props;
     const theadRows = FileRowsTable.prepareTheadRows(rows[0].length, file.idColumn, file.priceColumn);
     const tRows = FileRowsTable.prepareTRows(rows, file.idColumn);

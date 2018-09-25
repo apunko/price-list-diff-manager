@@ -48,6 +48,8 @@ class FilesDiffEditor extends React.Component {
   }
 
   render() {
+    if (this.props.rows.length === 0) { return <>No items</>; }
+
     const { rows, idColumn, priceColumn, chargeRates, handleChange } = this.props;
     const theadRows = FilesDiffEditor.prepareTheadRows(rows[0].data.length, idColumn, priceColumn);
     const tRows = FilesDiffEditor.prepareTRows(rows, idColumn, priceColumn, chargeRates, handleChange);
