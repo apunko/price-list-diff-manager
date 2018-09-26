@@ -13,19 +13,19 @@ class AppContainer extends React.Component {
 
     this.state = {
       oldFile: {
-        path: '/Users/mac-082-71/Downloads/Прайс№1(старый).xls',
+        path: null,
         idColumn: '4',
         startRow: '3',
         priceColumn: '5',
       },
       newFile: {
-        path: '/Users/mac-082-71/Downloads/Прайс№2 (новый).xls',
+        path: null,
         idColumn: '5',
         startRow: '3',
         priceColumn: '6',
       },
       catalogFile: {
-        path: '/Users/mac-082-71/Downloads/set_of_files/catalog_test/Catalog_test.xlsx',
+        path: null,
         idColumn: '6',
         priceColumn: '2',
       },

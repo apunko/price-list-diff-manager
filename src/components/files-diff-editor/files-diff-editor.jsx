@@ -23,7 +23,7 @@ class FilesDiffEditor extends React.Component {
 
   static prepareTRows(rows, idColumn, priceColumn, chargeRates, handleChange) {
     return rows.map((row, rowIndex) => {
-      const rowData = row.data.map((columnValue, index) => <td key={`${index}`}>{columnValue}</td>); // eslint-disable-line
+      const rowData = row.data.map((columnValue, index) => <td key={`${index}`}>{columnValue}</td>);
       rowData.push(
         <td key="charge">
           <input

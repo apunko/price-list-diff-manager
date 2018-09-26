@@ -19,7 +19,9 @@ class FileRowsTable extends React.Component {
 
   static prepareTRows(rows, idColumn) {
     return rows.map((row) => {
-      const rowData = row.map((columnValue, index) => <td key={`${index}`}>{columnValue}</td>); // eslint-disable-line
+      const rowData = row.map((columnValue, index) => (
+        <td key={index}>{columnValue}</td>
+      ));
 
       return <tr key={row[idColumn - 1]}>{rowData}</tr>;
     });
