@@ -16,11 +16,8 @@ const ProductInfo = () => (
           The product is free of charge.
         </li>
         <li>
-          More information and code you can find on
-          <ExternalLink
-            title="github"
-            href="https://github.com/apunko/price-list-diff-manager"
-          />
+          Was developed in free time.
+          <b> Not ideal.</b>
         </li>
         <li>
           If the product does not meet your desires completely -
@@ -29,6 +26,13 @@ const ProductInfo = () => (
           <ExternalLink
             title="here"
             href="https://github.com/apunko/price-list-diff-manager/issues"
+          />
+        </li>
+        <li>
+          More information and code you can find on
+          <ExternalLink
+            title="github"
+            href="https://github.com/apunko/price-list-diff-manager"
           />
         </li>
         <li>
