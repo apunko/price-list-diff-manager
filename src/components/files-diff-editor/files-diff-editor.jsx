@@ -1,20 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TableHelper from '../../helpers/table-helper';
 import './files-diff-editor.css';
 
 class FilesDiffEditor extends React.Component {
   static prepareTheadRows(rowDataLength, idColumn, priceColumn) {
-    const theadRows = [];
-    for (let i = 1; i <= rowDataLength; i += 1) {
-      if (i === Number(idColumn)) {
-        theadRows.push(<th key={i}>ID</th>);
-      } else if (i === Number(priceColumn)) {
-        theadRows.push(<th key={i}>Price</th>);
-      } else {
-        theadRows.push(<th key={i} />);
-      }
-    }
-
+    const theadRows = TableHelper.prepareTheadRows(rowDataLength, idColumn, priceColumn);
     theadRows.push(<th key="charge_rate">Charge Rate</th>);
     theadRows.push(<th key="new_price">New Price</th>);
 
