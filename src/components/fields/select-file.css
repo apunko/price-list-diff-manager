@@ -1,0 +1,7 @@
+.selected-file {
+  margin-top: 5px;
+}
+
+.selected-file .file-path {
+  overflow-x: auto;
+}

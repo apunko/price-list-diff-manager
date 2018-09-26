@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OpenDialog from '../open-dialog';
+import './select-file.css';
 
 const SelectFile = ({ title, path, onSelect }) => (
   <div className="grid-item">
@@ -8,8 +9,9 @@ const SelectFile = ({ title, path, onSelect }) => (
       title={`Select ${title}`}
       onSelect={onSelect}
     />
-    <div style={{ marginTop: '5px' }}>
-      {`Selected file: ${path || '-'}`}
+    <div className="selected-file">
+      <div>Selected file:</div>
+      <div className="file-path">{`${path || '-'}`}</div>
     </div>
   </div>
 );
