@@ -1,0 +1,7 @@
+button.external {
+  background: none;
+  border: none; 
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+}

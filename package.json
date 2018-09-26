@@ -29,6 +29,7 @@
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-tabs": "^2.3.0",
+    "reactjs-popup": "^1.2.0",
     "xlsx": "^0.14.0"
   },
   "devDependencies": {

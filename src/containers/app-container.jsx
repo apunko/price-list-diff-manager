@@ -5,6 +5,7 @@ import FileConfigHelper from '../helpers/file-config-helper';
 import CatalogConfig from '../components/catalog-config';
 import CatalogService from '../services/catalog-service';
 import FilesDiffTabs from '../components/files-diff-tabs';
+import ProductInfo from '../components/product-info';
 import './app.css';
 
 class AppContainer extends React.Component {
@@ -123,6 +124,7 @@ class AppContainer extends React.Component {
 
     return (
       <div className={`processing-${processing}`}>
+        <ProductInfo />
         <div className="file-configs-grid">
           <FileParsingConfig
             title="Old file"

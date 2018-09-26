@@ -3,6 +3,10 @@
   pointer-events: none;
 }
 
+.processing-false {
+  margin-bottom: 30px;
+}
+
 .file-configs-grid {
   display: grid;
   grid-template-columns: 35% 35% 30%;

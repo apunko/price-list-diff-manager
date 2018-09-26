@@ -6,7 +6,7 @@ import FileRowsTable from '../file-rows-table';
 import 'react-tabs/style/react-tabs.css';
 
 const FilesDiffTabs = ({ newFile, oldFile, handleChargeRateChange, chargeRates, filesDiff }) => (
-  <Tabs>
+  <Tabs style={{ background: 'white' }}>
     <TabList>
       <Tab>Changed Price Items</Tab>
       <Tab>Added Items</Tab>
