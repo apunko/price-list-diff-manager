@@ -12,38 +12,12 @@ class FilesDiffEditor extends React.Component {
     return theadRows;
   }
 
-  static prepareTRows(rows, idColumn, priceColumn, chargeRates, handleChange) {
-    return rows.map((row, rowIndex) => {
-      const rowData = row.data.map((columnValue, index) => <td key={`${index}`}>{columnValue}</td>);
-      rowData.push(
-        <td key="charge">
-          <input
-            type="number"
-            step="0.01"
-            min="0"
-            className="number-field"
-            name={rowIndex}
-            onChange={handleChange}
-            value={chargeRates[rowIndex]}
-          />
-        </td>,
-      );
-      rowData.push(
-        <td key="new_price">
-          {(Number(chargeRates[rowIndex]) * Number(row.data[priceColumn - 1])).toFixed(2)}
-        </td>,
-      );
-
-      return <tr key={row.data[idColumn - 1]}>{rowData}</tr>;
-    });
-  }
-
   render() {
     if (this.props.rows.length === 0) { return <>No items</>; }
 
     const { rows, idColumn, priceColumn, chargeRates, handleChange } = this.props;
     const theadRows = FilesDiffEditor.prepareTheadRows(rows[0].data.length, idColumn, priceColumn);
-    const tRows = FilesDiffEditor.prepareTRows(rows, idColumn, priceColumn, chargeRates, handleChange);
+    const tRows = TableHelper.prepareEditableTRows(rows, idColumn, priceColumn, chargeRates, handleChange);
 
     return (
       <table>

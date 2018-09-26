@@ -6,7 +6,7 @@ const FileRowsTable = ({ file, rows }) => {
   if (rows.length === 0) { return <>No items</>; }
 
   const theadRows = TableHelper.prepareTheadRows(rows[0].length, file.idColumn, file.priceColumn);
-  const tRows = TableHelper.prepareTRows(rows, file.idColumn);
+  const tRows = TableHelper.prepareTRows(rows, file.idColumn, file.priceColumn);
 
   return (
     <table>
