@@ -5,7 +5,7 @@ import './product-info.css';
 
 const ProductInfo = () => (
   <Popup
-    trigger={<button type="button" className="trigger">Product additionl info</button>}
+    trigger={<button type="button" className="trigger">Product additional info</button>}
     modal
     closeOnDocumentClick
   >
