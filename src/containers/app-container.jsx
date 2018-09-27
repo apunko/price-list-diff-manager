@@ -15,20 +15,20 @@ class AppContainer extends React.Component {
     this.state = {
       oldFile: {
         path: null,
-        idColumn: '4',
-        startRow: '3',
-        priceColumn: '5',
+        idColumn: '1',
+        startRow: '6',
+        priceColumn: '7',
       },
       newFile: {
         path: null,
-        idColumn: '5',
-        startRow: '3',
-        priceColumn: '6',
+        idColumn: '1',
+        startRow: '6',
+        priceColumn: '7',
       },
       catalogFile: {
         path: null,
         idColumn: '6',
-        priceColumn: '2',
+        priceColumn: '5',
       },
       filesDiff: {
         addedRows: null,
