@@ -6,10 +6,10 @@ const TableHelper = {
   prepareTheadRows: (rowDataLength, idColumn, priceColumn) => {
     const theadRows = [];
     const rowLength = TableHelper.getRowLength(rowDataLength, idColumn, priceColumn);
-    for (let i = 1; i <= rowLength; i += 1) {
-      if (i === Number(idColumn)) {
+    for (let i = 0; i < rowLength; i += 1) {
+      if (i === Number(idColumn - 1)) {
         theadRows.push(<th key={i}>ID</th>);
-      } else if (i === Number(priceColumn)) {
+      } else if (i === Number(priceColumn - 1)) {
         theadRows.push(<th key={i}>Price</th>);
       } else {
         theadRows.push(<th key={i} />);
@@ -25,7 +25,7 @@ const TableHelper = {
 
     return rows.map((row) => {
       const rowData = [];
-      for (let i = 1; i <= rowLength; i += 1) {
+      for (let i = 0; i < rowLength; i += 1) {
         rowData.push(<td key={i}>{row[i]}</td>);
       }
 
@@ -39,7 +39,7 @@ const TableHelper = {
 
     return rows.map((row, rowIndex) => {
       const rowData = [];
-      for (let i = 1; i <= rowLength; i += 1) {
+      for (let i = 0; i < rowLength; i += 1) {
         rowData.push(<td key={i}>{row.data[i]}</td>);
       }
       rowData.push(
